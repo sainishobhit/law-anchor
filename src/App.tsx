@@ -18,8 +18,9 @@ function App() {
       const headerHeight = document.querySelector("header")?.offsetHeight || 0;
 
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop - headerHeight - 100;
-        const sectionHeight = section.clientHeight;
+        const sectionElement = section as HTMLElement;
+        const sectionTop = sectionElement.offsetTop - headerHeight - 100;
+        const sectionHeight = sectionElement.clientHeight;
 
         if (
           window.pageYOffset >= sectionTop &&

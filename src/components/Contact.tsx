@@ -16,13 +16,15 @@ const Contact: React.FC = () => {
   const [configValid, setConfigValid] = useState(true);
 
   useEffect(() => {
-    // Validate EmailJS configuration
-    const isValid = true; // Simplified for now
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+
+    const isValid = !!(publicKey && serviceId && templateId);
     setConfigValid(isValid);
 
     if (isValid) {
-      // Initialize EmailJS with your public key
-      emailjs.init("YOUR_PUBLIC_KEY");
+      emailjs.init(publicKey);
     }
   }, []);
 
@@ -39,7 +41,7 @@ const Contact: React.FC = () => {
 
     try {
       const templateParams = {
-        to_email: "sainishobhit24@gmail.com",
+        to_email: "legal.jatin@gmail.com",
         from_name: formData.name,
         from_email: formData.email,
         phone: formData.phone,
@@ -49,8 +51,8 @@ const Contact: React.FC = () => {
       };
 
       const result = await emailjs.send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         templateParams
       );
 
@@ -88,94 +90,114 @@ const Contact: React.FC = () => {
   return (
     <section
       id="contact"
-      className="relative py-20 bg-gradient-to-br from-gray-50 to-blue-50 overflow-hidden"
+      className="relative py-24 bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 overflow-hidden"
     >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-100 to-gray-100"></div>
+      {/* Decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-5 animate-pulse" style={{ animationDelay: "2s" }}></div>
       </div>
 
-      {/* Legal Icons Background */}
-      <div className="absolute right-0 top-0 h-full w-1/4 opacity-5">
-        <div className="relative h-full">
-          <div className="absolute top-1/4 right-1/4 text-6xl">⚖️</div>
-          <div className="absolute top-1/2 right-1/3 text-5xl">📜</div>
-          <div className="absolute bottom-1/4 right-1/4 text-6xl">🏛️</div>
-        </div>
-      </div>
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)", backgroundSize: "60px 60px" }}></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-6">
-            <i className="fas fa-balance-scale text-2xl text-white"></i>
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 px-4 py-2 rounded-full text-sm font-medium mb-6 tracking-wide uppercase">
+            <i className="fas fa-balance-scale text-xs"></i>
+            Confidential Consultation
           </div>
-          <h2 className="section-title text-blue-900">Contact Us</h2>
-          <p className="section-subtitle text-gray-600">
-            Ready to discuss your legal needs? Get in touch with our expert
-            team.
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Your Legal Matter <span className="text-yellow-400">Deserves Attention</span>
+          </h2>
+          <p className="text-lg text-blue-200/70 max-w-2xl mx-auto">
+            Every case begins with a conversation. Share your concerns with us
+            — your inquiry is protected by attorney-client privilege.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-12">
-          <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-            <h3 className="text-2xl font-semibold mb-8 text-gray-800">
-              Get In Touch
-            </h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
+          {/* Left Panel - Contact Info */}
+          <div className="space-y-8">
+            <div className="bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/10">
+              <h3 className="text-2xl font-semibold mb-8 text-white flex items-center gap-3">
+                <span className="w-10 h-10 bg-yellow-500/20 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-shield-alt text-yellow-400"></i>
+                </span>
+                Reach Our Legal Team
+              </h3>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-full">
-                  <i className="fas fa-map-marker-alt text-white"></i>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                    <i className="fas fa-map-marker-alt text-blue-400"></i>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white">Delhi Office</h4>
+                    <p className="text-blue-200/60">[Full Address]</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-gray-800">Delhi Office</h4>
-                  <p className="text-gray-600">[Full Address]</p>
-                </div>
-              </div>
 
-              <div className="flex items-start gap-4">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-full">
-                  <i className="fas fa-phone text-white"></i>
+                <div className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                    <i className="fas fa-phone text-blue-400"></i>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white">Phone</h4>
+                    <p className="text-blue-200/60">+91-XXXXXXXXXX</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-gray-800">Phone</h4>
-                  <p className="text-gray-600">+91-XXXXXXXXXX</p>
-                </div>
-              </div>
 
-              <div className="flex items-start gap-4">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-full">
-                  <i className="fas fa-envelope text-white"></i>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-gray-800">Email</h4>
-                  <p className="text-gray-600">delhi@sainiandsingh.com</p>
-                  <p className="text-gray-600">info@sainiandsingh.com</p>
+                <div className="flex items-start gap-4 group">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                    <i className="fas fa-envelope text-blue-400"></i>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white">Email</h4>
+                    <p className="text-blue-200/60">legal.jatin@gmail.com</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-blue-50 p-6 rounded-xl mt-8 border border-blue-200">
-              <h4 className="text-lg font-semibold mb-4 text-blue-800">
-                Business Hours
+            <div className="bg-gradient-to-br from-yellow-500/10 to-yellow-600/5 p-8 rounded-2xl border border-yellow-500/20">
+              <h4 className="text-lg font-semibold mb-4 text-yellow-400 flex items-center gap-2">
+                <i className="fas fa-clock"></i>
+                Consultation Hours
               </h4>
-              <div className="space-y-2 text-gray-700">
-                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                <p>Saturday: 10:00 AM - 4:00 PM</p>
-                <p className="text-sm">
-                  24x7 support available for retainer clients
-                </p>
+              <div className="space-y-3 text-blue-100/70">
+                <div className="flex justify-between">
+                  <span>Monday - Sunday</span>
+                  <span className="text-white font-medium">9:00 AM - 6:00 PM</span>
+                </div>
+                <div className="border-t border-white/10 pt-3">
+                  <p className="text-yellow-400/80 text-sm flex items-center gap-2">
+                    <i className="fas fa-star text-xs"></i>
+                    24x7 priority support for retainer clients
+                  </p>
+                </div>
               </div>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+              <p className="text-blue-200/50 text-sm flex items-start gap-3">
+                <i className="fas fa-lock text-yellow-400/60 mt-0.5"></i>
+                All communications are strictly confidential and protected under the Advocates Act, 1961. Your information will never be shared without your consent.
+              </p>
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-            <h3 className="text-2xl font-semibold mb-8 text-gray-800">
+          {/* Right Panel - Form */}
+          <div className="bg-white p-10 rounded-2xl shadow-2xl">
+            <h3 className="text-2xl font-bold mb-2 text-gray-900">
               Schedule a Consultation
             </h3>
+            <p className="text-gray-500 mb-8 text-sm">
+              Fill in the details below and our team will respond within 24 hours.
+            </p>
 
             {!configValid && (
-              <div className="mb-6 p-4 bg-yellow-100 border border-yellow-400 text-yellow-700 rounded-lg">
+              <div className="mb-6 p-4 bg-yellow-50 border border-yellow-300 text-yellow-800 rounded-xl">
                 <p className="font-medium">Email configuration not set up</p>
                 <p className="text-sm">
                   Please set up your EmailJS environment variables to enable the
@@ -185,16 +207,19 @@ const Contact: React.FC = () => {
             )}
 
             {submitStatus === "success" && (
-              <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                <p className="font-medium">Thank you for your message!</p>
-                <p className="text-sm">
-                  We will get back to you soon at {formData.email}
+              <div className="mb-6 p-4 bg-green-50 border border-green-300 text-green-800 rounded-xl">
+                <p className="font-medium flex items-center gap-2">
+                  <i className="fas fa-check-circle"></i>
+                  Thank you for reaching out!
+                </p>
+                <p className="text-sm mt-1">
+                  Our legal team will review your matter and respond promptly.
                 </p>
               </div>
             )}
 
             {submitStatus === "error" && (
-              <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+              <div className="mb-6 p-4 bg-red-50 border border-red-300 text-red-800 rounded-xl">
                 <p className="font-medium">
                   Sorry, there was an error sending your message.
                 </p>
@@ -204,32 +229,53 @@ const Contact: React.FC = () => {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label
-                  htmlFor="name"
-                  className="block font-medium text-gray-700 mb-2"
-                >
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter your full name"
-                  required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors"
-                />
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium text-gray-700 mb-1.5"
+                  >
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 focus:outline-none transition-all bg-gray-50/50"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-gray-700 mb-1.5"
+                  >
+                    Phone Number <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="+91-XXXXXXXXXX"
+                    required
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 focus:outline-none transition-all bg-gray-50/50"
+                  />
+                </div>
               </div>
 
               <div>
                 <label
                   htmlFor="email"
-                  className="block font-medium text-gray-700 mb-2"
+                  className="block text-sm font-medium text-gray-700 mb-1.5"
                 >
-                  Email Address *
+                  Email Address <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="email"
@@ -237,37 +283,18 @@ const Contact: React.FC = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="Enter your email"
+                  placeholder="your@email.com"
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="phone"
-                  className="block font-medium text-gray-700 mb-2"
-                >
-                  Phone Number *
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Enter your phone number"
-                  required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 focus:outline-none transition-all bg-gray-50/50"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="matter"
-                  className="block font-medium text-gray-700 mb-2"
+                  className="block text-sm font-medium text-gray-700 mb-1.5"
                 >
-                  Legal Matter *
+                  Nature of Legal Matter <span className="text-red-500">*</span>
                 </label>
                 <select
                   id="matter"
@@ -275,9 +302,9 @@ const Contact: React.FC = () => {
                   value={formData.matter}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 focus:outline-none transition-all bg-gray-50/50"
                 >
-                  <option value="">Select practice area</option>
+                  <option value="">Select your concern</option>
                   <option value="litigation">
                     Litigation & Dispute Resolution
                   </option>
@@ -288,48 +315,57 @@ const Contact: React.FC = () => {
                   </option>
                   <option value="family">Family & Matrimonial Law</option>
                   <option value="arbitration">Arbitration & ADR</option>
+                  <option value="retainership">Legal Retainership</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
 
               <div>
                 <label
                   htmlFor="message"
-                  className="block font-medium text-gray-700 mb-2"
+                  className="block text-sm font-medium text-gray-700 mb-1.5"
                 >
-                  Message *
+                  Brief Description <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Briefly describe your legal matter"
+                  placeholder="Describe your legal matter briefly — all information is kept strictly confidential."
                   rows={4}
                   required
-                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-600 focus:outline-none resize-vertical transition-colors"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:border-blue-600 focus:ring-2 focus:ring-blue-600/10 focus:outline-none resize-vertical transition-all bg-gray-50/50"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting || !configValid}
-                className={`w-full px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 shadow-lg ${
+                className={`w-full px-6 py-4 rounded-xl font-bold transition-all duration-300 transform hover:scale-[1.02] shadow-lg text-lg ${
                   isSubmitting || !configValid
-                    ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700 text-white"
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-gradient-to-r from-blue-700 to-blue-900 hover:from-blue-800 hover:to-blue-950 text-white shadow-blue-900/25"
                 }`}
               >
                 {isSubmitting ? (
-                  <>
+                  <span className="flex items-center justify-center gap-2">
                     <i className="fas fa-spinner fa-spin"></i>
                     Sending...
-                  </>
+                  </span>
                 ) : !configValid ? (
                   "Email Not Configured"
                 ) : (
-                  "Schedule Consultation"
+                  <span className="flex items-center justify-center gap-2">
+                    <i className="fas fa-paper-plane"></i>
+                    Request Consultation
+                  </span>
                 )}
               </button>
+
+              <p className="text-center text-gray-400 text-xs mt-3">
+                By submitting, you agree to our privacy policy. We do not share your information.
+              </p>
             </form>
           </div>
         </div>

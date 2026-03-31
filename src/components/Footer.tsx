@@ -46,7 +46,8 @@ const Footer: React.FC = () => {
             <div className="space-y-4">
               <div className="flex items-center gap-3 text-gray-500 text-sm">
                 <i className="fas fa-map-marker-alt text-yellow-500/50 w-4"></i>
-                <span>Delhi | Gurugram | Lucknow</span>
+                <span>G2 (ground floor) DELHI TAX BAR ASSOCIATION, LAWYER CHAMBERS, 30, D.D.U.MARG OPPOSITE TO ROUSE AVENUE COURT, NEW DELHI 
+110002</span>
               </div>
               <div className="flex items-center gap-3 text-gray-500 text-sm">
                 <i className="fas fa-phone text-yellow-500/50 w-4"></i>

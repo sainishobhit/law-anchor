@@ -71,7 +71,7 @@ const Services: React.FC = () => {
     {
       icon: "fas fa-users",
       title: "Unlimited Consultations",
-      description: "Round-the-clock legal advisory on demand — no per-consultation charges.",
+      description: "Round-the-clock legal advisory on demand — ₹1,000 per-consultation charges.",
     },
     {
       icon: "fas fa-file-contract",
